@@ -1,0 +1,321 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>RanchHub</title>
+<meta name="description" content="For work and life.">
+<meta property="og:title" content="RanchHub">
+<meta property="og:description" content="Your work AI. Your own AI. One Ranch, in the cloud.">
+<meta property="og:image" content="https://images.pexels.com/photos/19575182/pexels-photo-19575182.jpeg?auto=compress&cs=tinysrgb&w=1200">
+<meta property="og:url" content="https://getranchhub.com/">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#120c08">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23120c08'/%3E%3Ctext x='32' y='44' font-family='Arial Black,Arial' font-weight='900' font-size='34' text-anchor='middle' fill='%23f2b15a'%3ER%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Unbounded:wght@600;800&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+  :root{
+    --ink:#f6efe6;
+    --dim:rgba(246,239,230,.86);
+    --faint:rgba(246,239,230,.8);
+    --ring:1px 0px 0 rgba(14,9,6,.9),-1px 0px 0 rgba(14,9,6,.9),0px 1px 0 rgba(14,9,6,.9),0px -1px 0 rgba(14,9,6,.9),1px 1px 0 rgba(14,9,6,.9),-1px 1px 0 rgba(14,9,6,.9),1px -1px 0 rgba(14,9,6,.9),-1px -1px 0 rgba(14,9,6,.9);
+    --lift:var(--ring),0 0 18px rgba(18,12,8,.65);
+    --ember:#f2b15a;
+    --ember-glow:rgba(242,177,90,.55);
+    --night:#120c08;
+    --ease:cubic-bezier(.2,.75,.2,1);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{background:var(--night)}
+  body{
+    min-height:100svh;
+    display:flex;flex-direction:column;
+    color:var(--ink);
+    font-family:"IBM Plex Mono",ui-monospace,Menlo,Consolas,monospace;
+    -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
+  }
+
+  /* ---- the one photo: a saved copy (hero.jpg) wins; the stock site is the fallback ---- */
+  .land{
+    position:fixed;inset:0;z-index:0;
+    background:linear-gradient(180deg,#1d120b 0%,#5a2c14 45%,#c26a2b 72%,#f2b15a 100%);
+  }
+  .land::before{
+    content:"";position:absolute;inset:0;
+    background-image:url("hero.jpg"),url("https://images.pexels.com/photos/19575182/pexels-photo-19575182.jpeg?auto=compress&cs=tinysrgb&w=2400");
+    background-position:center 62%;background-size:cover;background-repeat:no-repeat;
+    transform:translate3d(0,0,0) scale(1.08);
+    will-change:transform;backface-visibility:hidden;
+    animation:settle 30s cubic-bezier(.22,.6,.35,1) forwards;
+  }
+  .land::after{
+    content:"";position:absolute;inset:0;
+    background:
+      radial-gradient(110% 85% at 50% 42%,rgba(18,12,8,0) 28%,rgba(18,12,8,.7) 100%),
+      linear-gradient(180deg,rgba(18,12,8,.82) 0%,rgba(18,12,8,.6) 14%,rgba(18,12,8,.18) 38%,rgba(18,12,8,.42) 72%,rgba(18,12,8,.9) 100%);
+  }
+  @keyframes settle{to{transform:translate3d(0,0,0) scale(1)}}
+
+  /* film grain + drifting dust in the light */
+  .grain{
+    position:fixed;inset:0;z-index:0;pointer-events:none;opacity:.09;mix-blend-mode:overlay;
+    transform:translateZ(0);
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+  #dust{position:fixed;inset:0;z-index:0;pointer-events:none;width:100%;height:100%;transform:translateZ(0)}
+
+  /* ---- content ---- */
+  main{
+    position:relative;z-index:1;flex:1;
+    display:flex;flex-direction:column;align-items:center;justify-content:center;
+    text-align:center;
+    padding:max(56px,env(safe-area-inset-top)) max(24px,env(safe-area-inset-right)) 36px max(24px,env(safe-area-inset-left));
+  }
+
+  .kicker{
+    display:flex;align-items:center;gap:18px;
+    font-size:clamp(.88rem,.45vw + .78rem,1.12rem);font-weight:500;
+    letter-spacing:.34em;text-transform:uppercase;
+    color:var(--ember);
+    text-shadow:var(--lift);
+  }
+  .kicker span{padding-left:.34em}
+  .kicker i{display:block;height:1px;width:0;background:var(--ember);opacity:.7;animation:draw 1.4s var(--ease) .5s forwards}
+  @keyframes draw{to{width:clamp(26px,5vw,56px)}}
+
+  h1{
+    margin:clamp(18px,3vh,32px) 0 clamp(30px,5.4vh,58px);
+    display:flex;justify-content:center;
+    font-family:"Unbounded",system-ui,sans-serif;
+    font-weight:800;
+    font-size:clamp(3rem,13.5vw,9.5rem);
+    line-height:1;letter-spacing:-.005em;
+    overflow:hidden;padding:0 .04em .04em;
+    filter:drop-shadow(0 4px 30px rgba(0,0,0,.45)) drop-shadow(0 0 26px rgba(242,177,90,.18));
+  }
+  h1 .w{text-shadow:2px 0px 0 rgba(14,9,6,.9),-2px 0px 0 rgba(14,9,6,.9),0px 2px 0 rgba(14,9,6,.9),0px -2px 0 rgba(14,9,6,.9),1.5px 1.5px 0 rgba(14,9,6,.9),-1.5px 1.5px 0 rgba(14,9,6,.9),1.5px -1.5px 0 rgba(14,9,6,.9),-1.5px -1.5px 0 rgba(14,9,6,.9);display:inline-block;transform:translateY(105%);animation:up 1.15s var(--ease) forwards}
+  h1 .w1{animation-delay:.55s}
+  h1 .w2{animation-delay:.72s;color:var(--ember)}
+  @keyframes up{to{transform:none}}
+
+  .stack{list-style:none;display:flex;flex-direction:column;align-items:center}
+  .stack li{opacity:0;transform:translateY(10px);animation:rise 1s var(--ease) forwards}
+  @keyframes rise{to{opacity:1;transform:none}}
+
+  .crew{
+    gap:.5em;
+    font-family:"Unbounded",system-ui,sans-serif;font-weight:600;
+    font-size:clamp(1.05rem,3.4vw,1.5rem);
+    line-height:1.25;
+    text-shadow:var(--ring),0 2px 20px rgba(18,12,8,.55);
+  }
+  .crew li:last-child{color:var(--ember)}
+
+  .group{margin-top:clamp(30px,5.2vh,56px);display:flex;flex-direction:column;align-items:center}
+  .run{
+    gap:.55em;
+    font-size:clamp(1rem,2.4vw,1.18rem);font-weight:500;line-height:1.4;
+    color:var(--dim);
+    text-shadow:var(--lift);
+  }
+  .run li{white-space:nowrap}
+  .cursor{
+    display:inline-block;width:.62em;height:1.08em;
+    margin-left:.32em;vertical-align:-.17em;
+    background:var(--ember);border:0;border-radius:1px;cursor:pointer;
+    box-shadow:0 0 14px var(--ember-glow);
+    animation:blink 1.1s steps(1) infinite;
+    -webkit-tap-highlight-color:transparent;
+  }
+  .cursor::after{content:"";position:absolute;inset:-14px} /* bigger tap target */
+  .cursor{position:relative}
+  .cursor:focus-visible{outline:2px solid var(--ink);outline-offset:4px}
+  @keyframes blink{50%{opacity:0}}
+  .egg{color:var(--ember)}
+
+  /* ---- what the curious find ---- */
+  .reveal{display:grid;grid-template-rows:0fr;transition:grid-template-rows 1s var(--ease)}
+  .reveal.open{grid-template-rows:1fr}
+  .reveal>div{min-height:0;overflow:hidden}
+  .reveal hr{
+    width:0;height:1px;border:0;background:var(--ember);opacity:.75;
+    margin:clamp(22px,3.6vh,34px) auto clamp(16px,2.6vh,24px);
+    transition:width 1.1s var(--ease) .15s;
+  }
+  .reveal.open hr{width:48px}
+  .kit{
+    list-style:none;display:flex;flex-direction:column;align-items:center;gap:.75em;
+    font-size:clamp(.76rem,.35vw + .7rem,.92rem);font-weight:500;
+    letter-spacing:.22em;text-transform:uppercase;
+    color:var(--ink);
+    text-shadow:var(--lift);
+  }
+  .kit li{padding-left:.22em;opacity:0;transform:translateY(8px);transition:opacity .9s var(--ease),transform .9s var(--ease)}
+  .kit li.hot{color:var(--ember)}
+  .kit li.gap{margin-top:.8em}
+  .reveal.open .kit li{opacity:1;transform:none}
+  .reveal.open .kit li:nth-child(1){transition-delay:.35s}
+  .reveal.open .kit li:nth-child(2){transition-delay:.6s}
+  .reveal.open .kit li:nth-child(3){transition-delay:.85s}
+  .reveal.open .kit li:nth-child(4){transition-delay:1.25s}
+  .reveal.open .kit li:nth-child(5){transition-delay:1.5s}
+
+  footer{
+    position:relative;z-index:1;
+    width:100%;max-width:1200px;align-self:center;
+    display:flex;justify-content:space-between;align-items:flex-end;gap:16px;
+    padding:16px max(clamp(24px,3.6vw,64px),env(safe-area-inset-right)) max(clamp(24px,3.6vh,40px),env(safe-area-inset-bottom)) max(clamp(24px,3.6vw,64px),env(safe-area-inset-left));
+    font-size:clamp(.8rem,.3vw + .72rem,.94rem);font-weight:500;letter-spacing:.2em;text-transform:uppercase;
+    color:var(--faint);
+    text-shadow:var(--lift);
+    opacity:0;animation:rise 1.2s var(--ease) 4.6s forwards;
+  }
+  footer a{color:var(--ink);text-decoration:none;border-bottom:1px solid rgba(246,239,230,.5);padding-bottom:5px;transition:color .3s,border-color .3s}
+  footer a:hover,footer a:focus-visible{color:var(--ember);border-color:var(--ember);outline:none}
+
+  @media (max-width:520px){
+    footer{flex-direction:column-reverse;align-items:center;gap:20px;letter-spacing:.16em;text-align:center}
+    footer .tag{display:flex;flex-direction:column;gap:8px}
+    footer .tag b{display:none}
+    .kit{letter-spacing:.16em}
+    .kicker{letter-spacing:.28em;gap:14px}
+  }
+  @media (max-height:700px){
+    main{padding-top:max(28px,env(safe-area-inset-top));padding-bottom:20px}
+    h1{margin:12px 0 22px}
+    .crew{gap:.35em}
+    .group{margin-top:20px}
+    .run{gap:.35em}
+    .reveal hr{margin:16px auto 12px}
+    .kit{gap:.55em}
+    footer{padding-top:8px;padding-bottom:max(16px,env(safe-area-inset-bottom))}
+    footer{gap:12px}
+  }
+  @media (prefers-reduced-motion:reduce){
+    .land::before{animation:none;transform:none}
+    h1 .w,.stack li,footer{animation:none;opacity:1;transform:none}
+    .kicker i{animation:none;width:32px}
+    .cursor{animation:none}
+    .reveal,.reveal hr,.kit li{transition:none}
+  }
+</style>
+</head>
+<body>
+  <div class="land" role="img" aria-label="Riders and horses crossing open range at sunset"></div>
+  <canvas id="dust" aria-hidden="true"></canvas>
+  <div class="grain" aria-hidden="true"></div>
+
+  <main>
+    <p class="kicker"><i></i><span>For work and life</span><i></i></p>
+    <h1 aria-label="RanchHub"><span class="w w1" aria-hidden="true">Ranch</span><span class="w w2" aria-hidden="true">Hub</span></h1>
+
+    <ul class="stack crew">
+      <li style="animation-delay:1.5s">Your work AI.</li>
+      <li style="animation-delay:2s">Your own AI.</li>
+      <li style="animation-delay:2.5s">One Ranch, in the cloud.</li>
+    </ul>
+
+    <div class="group">
+      <ul class="stack run" id="run">
+        <li style="animation-delay:3.2s">Plugs in.</li>
+        <li style="animation-delay:3.6s">Learns you.</li>
+        <li style="animation-delay:4s" id="last">Runs itself.<button class="cursor" type="button" aria-label="What is this?" aria-controls="reveal" aria-expanded="false"></button></li>
+      </ul>
+
+      <div class="reveal" id="reveal" aria-hidden="true">
+        <div>
+          <hr>
+          <ul class="kit">
+            <li>One dashboard</li>
+            <li>Voice commands</li>
+            <li>The Clean Exchange</li>
+            <li class="hot gap">Built-in protections</li>
+            <li class="hot">Full authority stays with you</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer>
+    <span class="tag"><span>Built for the field</span><b> · </b><span>In private development</span></span>
+    <a href="mailto:getranchhub@gmail.com?subject=RanchHub%20%E2%80%93%20early%20access">Request access</a>
+  </footer>
+
+<script>
+(function(){
+  var still = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* The curious tap the cursor: it types "Under the hood." and the rest appears. */
+  var btn=document.querySelector('.cursor'), run=document.getElementById('run'), reveal=document.getElementById('reveal'), done=false;
+  btn.addEventListener('click',function(){
+    if(done) return; done=true;
+    btn.setAttribute('aria-expanded','true');
+    var li=document.createElement('li'); li.className='egg';
+    li.style.opacity=1; li.style.transform='none'; li.style.animation='none';
+    var node=document.createTextNode(''); li.appendChild(node); li.appendChild(btn); run.appendChild(li);
+    var text='Under the hood.', i=0;
+    function open(){ reveal.classList.add('open'); reveal.setAttribute('aria-hidden','false'); }
+    if(still){ node.data=text; open(); return; }
+    (function type(){ if(i<text.length){ node.data+=text[i++]; setTimeout(type,120); } else setTimeout(open,350); })();
+  });
+
+  /* Dust drifting through the low sun. */
+  if(still) return;
+  var c=document.getElementById('dust'), x=c.getContext && c.getContext('2d');
+  if(!x) return;
+  var W,H,dpr,motes=[],N;
+  var glow=document.createElement('canvas'); glow.width=glow.height=64;
+  (function(){ var g=glow.getContext('2d'), r=g.createRadialGradient(32,32,0,32,32,32);
+    r.addColorStop(0,'rgba(255,214,150,1)'); r.addColorStop(.18,'rgba(242,177,90,.9)'); r.addColorStop(.45,'rgba(242,177,90,.22)'); r.addColorStop(1,'rgba(242,177,90,0)');
+    g.fillStyle=r; g.fillRect(0,0,64,64); })();
+  function size(){
+    dpr=Math.min(window.devicePixelRatio||1,2);
+    W=c.clientWidth; H=c.clientHeight;
+    c.width=W*dpr; c.height=H*dpr; x.setTransform(dpr,0,0,dpr,0,0);
+    N=Math.round(Math.min(70,Math.max(28,W*H/22000)));
+    while(motes.length<N) motes.push(make(true));
+    motes.length=N;
+  }
+  function make(anywhere){
+    return {
+      x:Math.random()*W,
+      y:anywhere? H*(.3+Math.random()*.7) : H+10,
+      r:.5+Math.random()*1.6,
+      a:.12+Math.random()*.42,
+      vx:.05+Math.random()*.22,
+      vy:-(.04+Math.random()*.16),
+      p:Math.random()*Math.PI*2
+    };
+  }
+  var last=0;
+  function tick(t){
+    var dt=Math.min(48,t-(last||t)); last=t;
+    x.clearRect(0,0,W,H);
+    x.globalAlpha=1;
+    for(var i=0;i<motes.length;i++){
+      var m=motes[i];
+      m.p+=dt*.0012;
+      m.x+=(m.vx+Math.sin(m.p)*.12)*dt*.06;
+      m.y+=m.vy*dt*.06;
+      if(m.y<H*.12||m.x>W+10){ motes[i]=make(false); motes[i].x=Math.random()*W; continue; }
+      var fade=Math.min(1,(m.y-H*.12)/(H*.25));
+      var d=m.r*5;
+      x.globalAlpha=m.a*fade;
+      x.drawImage(glow,m.x-d/2,m.y-d/2,d,d);
+    }
+    raf=requestAnimationFrame(tick);
+  }
+  var raf;
+  size(); window.addEventListener('resize',size);
+  document.addEventListener('visibilitychange',function(){
+    if(document.hidden){ cancelAnimationFrame(raf); } else { last=0; raf=requestAnimationFrame(tick); }
+  });
+  raf=requestAnimationFrame(tick);
+})();
+</script>
+</body>
+</html>
