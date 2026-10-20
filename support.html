@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>RanchHub – Support</title>
+<meta name="description" content="RanchHub support: how to get help, requirements, and answers to common questions.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23120c08'/%3E%3Ctext x='32' y='44' font-family='Arial Black,Arial' font-weight='900' font-size='34' text-anchor='middle' fill='%23f2b15a'%3ER%3C/text%3E%3C/svg%3E">
+<style>
+  :root{--ink:#f6efe6;--dim:rgba(246,239,230,.82);--ember:#f2b15a;--night:#120c08;--line:rgba(246,239,230,.18)}
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{background:var(--night)}
+  body{color:var(--ink);font-family:"IBM Plex Mono",ui-monospace,Menlo,Consolas,monospace;line-height:1.6;-webkit-font-smoothing:antialiased}
+  main{max-width:46rem;margin:0 auto;padding:3rem 1.25rem 4rem}
+  a{color:var(--ember)}
+  .top{display:flex;justify-content:space-between;align-items:baseline;gap:1rem;margin-bottom:2.5rem;font-size:.9rem}
+  .top b{letter-spacing:.08em}
+  h1{font-size:1.9rem;line-height:1.2;margin-bottom:.5rem;letter-spacing:-.01em}
+  .lead{color:var(--dim);margin-bottom:2rem}
+  h2{font-size:1.15rem;margin:2rem 0 .6rem;color:var(--ember)}
+  p,li{color:var(--dim);margin-bottom:.8rem}
+  ul{padding-left:1.2rem}
+  li{margin-bottom:.5rem}
+  dt{color:var(--ink);margin-top:1.1rem}
+  dd{color:var(--dim);margin:.25rem 0 0 0}
+  .box{border:1px solid var(--line);border-radius:10px;padding:1rem 1.1rem;margin:1.2rem 0}
+  .box p{margin:0;color:var(--ink)}
+  footer{border-top:1px solid var(--line);margin-top:3rem;padding-top:1.2rem;font-size:.85rem;color:var(--dim)}
+</style>
+</head>
+<body>
+<main>
+  <nav class="top"><b><a href="/" style="text-decoration:none">RANCHHUB</a></b><span><a href="/privacy.html">Privacy</a></span></nav>
+
+  <h1>Support</h1>
+  <p class="lead">RanchHub is one dashboard on your own PC that runs your AI assistants as a team, with a stop switch only you hold. It is in beta.</p>
+
+  <div class="box"><p>Need help? Email <a href="mailto:getranchhub@gmail.com?subject=RanchHub%20support">getranchhub@gmail.com</a> with what you were doing, what you expected and what happened. Include the version shown in the app window (for example <code>0.1.1-beta.3</code>).</p></div>
+
+  <h2>Requirements</h2>
+  <ul>
+    <li>Windows 10 (version 1809 or newer) or Windows 11, 64-bit.</li>
+    <li>A web browser (Edge or Chrome) for the dashboard. Push to talk needs the browser's speech feature.</li>
+    <li>Optional: your own AI accounts. RanchHub does not include an AI subscription.</li>
+  </ul>
+
+  <h2>Common questions</h2>
+  <dl>
+    <dt>How do I stop everything?</dt>
+    <dd>Flip the brake on the dashboard. While the brake is on, no AI can change anything through RanchHub, and nothing is released or sent. Only you can turn it off.</dd>
+
+    <dt>Where is my data?</dt>
+    <dd>In one file on your computer, <code>ranchhub-data.json</code>. The dashboard shows its full path on the "Data file" line. Nothing is stored online by RanchHub. See the <a href="/privacy.html">privacy policy</a>.</dd>
+
+    <dt>How do I back up or move RanchHub?</dt>
+    <dd>Copy the data file (and the audit log and ledger beside it, if present) to the new computer's data folder before the first start. Copying a file into a running RanchHub is not supported; close it first.</dd>
+
+    <dt>How do I uninstall?</dt>
+    <dd>Settings → Apps → RanchHub → Uninstall. Your data file stays in your user folder so you can keep or delete it.</dd>
+
+    <dt>What is the Clean Exchange?</dt>
+    <dd>A check on notes passing between your AI team and an outside AI (for example your employer's). It blocks clearly sensitive items, holds anything doubtful for you to release or reject, and writes an audit line (types and rule names only, never contents) for your IT department.</dd>
+
+    <dt>The dashboard page does not open.</dt>
+    <dd>Keep the RanchHub window open; closing it stops the app. Then open the address it printed (it starts with <code>http://127.0.0.1:</code>). If a security tool blocks it, allow RanchHub on local connections only – it never listens on your network.</dd>
+
+    <dt>Talk to Bex says "not set up".</dt>
+    <dd>It needs your own Anthropic API key, saved as described in the app's README. Without a key the tab sends nothing. Each reply shows its cost; the hub stops calling the API once the month's total reaches the limit you set in Anthropic's Console.</dd>
+
+    <dt>Is there a Mac or Linux version?</dt>
+    <dd>Windows first. Mac and Linux builds exist for testing and will follow once the Windows version is stable.</dd>
+  </dl>
+
+  <h2>Report a problem or request a feature</h2>
+  <p>Email <a href="mailto:getranchhub@gmail.com?subject=RanchHub%20feedback">getranchhub@gmail.com</a>. Please do not send passwords, keys or company data; a description and a screenshot of the dashboard are enough.</p>
+
+  <footer>RanchHub · <a href="mailto:getranchhub@gmail.com">getranchhub@gmail.com</a> · <a href="/privacy.html">Privacy</a> · <a href="/">Home</a></footer>
+</main>
+</body>
+</html>

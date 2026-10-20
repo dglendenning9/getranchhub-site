@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>RanchHub – Privacy policy</title>
+<meta name="description" content="RanchHub privacy policy: what stays on your computer, what leaves it, and when.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23120c08'/%3E%3Ctext x='32' y='44' font-family='Arial Black,Arial' font-weight='900' font-size='34' text-anchor='middle' fill='%23f2b15a'%3ER%3C/text%3E%3C/svg%3E">
+<style>
+  :root{--ink:#f6efe6;--dim:rgba(246,239,230,.82);--ember:#f2b15a;--night:#120c08;--line:rgba(246,239,230,.18)}
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{background:var(--night)}
+  body{color:var(--ink);font-family:"IBM Plex Mono",ui-monospace,Menlo,Consolas,monospace;line-height:1.6;-webkit-font-smoothing:antialiased}
+  main{max-width:46rem;margin:0 auto;padding:3rem 1.25rem 4rem}
+  a{color:var(--ember)}
+  .top{display:flex;justify-content:space-between;align-items:baseline;gap:1rem;margin-bottom:2.5rem;font-size:.9rem}
+  .top b{letter-spacing:.08em}
+  h1{font-size:1.9rem;line-height:1.2;margin-bottom:.5rem;letter-spacing:-.01em}
+  .date{color:var(--dim);font-size:.9rem;margin-bottom:2rem}
+  h2{font-size:1.15rem;margin:2rem 0 .6rem;color:var(--ember)}
+  p,li{color:var(--dim);margin-bottom:.8rem}
+  ul{padding-left:1.2rem}
+  li{margin-bottom:.5rem}
+  .box{border:1px solid var(--line);border-radius:10px;padding:1rem 1.1rem;margin:1.2rem 0}
+  .box p{margin:0;color:var(--ink)}
+  footer{border-top:1px solid var(--line);margin-top:3rem;padding-top:1.2rem;font-size:.85rem;color:var(--dim)}
+</style>
+</head>
+<body>
+<main>
+  <nav class="top"><b><a href="/" style="text-decoration:none">RANCHHUB</a></b><span><a href="/support.html">Support</a></span></nav>
+
+  <h1>Privacy policy</h1>
+  <p class="date">Version 1 · effective when published · applies to the RanchHub desktop app and this website.</p>
+
+  <div class="box"><p>The short version: RanchHub runs on your own computer. Your data stays there. Nothing leaves your computer unless you turn on a feature that needs it, and this page says exactly which features those are.</p></div>
+
+  <h2>Who we are</h2>
+  <p>RanchHub is published by Doug Glendenning, Washington, USA. Questions about privacy: <a href="mailto:getranchhub@gmail.com?subject=RanchHub%20privacy">getranchhub@gmail.com</a>.</p>
+
+  <h2>What RanchHub stores, and where</h2>
+  <ul>
+    <li><strong>Your data file.</strong> Jobs, the brake, your gates, the wait list, held packets and (if you use it) your chat history are kept in one file on your computer: <code>ranchhub-data.json</code>. Installed from the Microsoft Store it lives in your user folder under <code>…\Packages\…\LocalState\</code>; run from a folder it sits beside the app.</li>
+    <li><strong>Audit log.</strong> Every Clean Exchange check writes one line to <code>ranchhub-exchange-audit.jsonl</code> beside the data file. It holds times, directions, item types and rule names – never the contents of a packet.</li>
+    <li><strong>Cost ledger.</strong> If you turn on Talk to Bex, each call's cost is one line in <code>chat-ledger.csv</code> beside the data file.</li>
+    <li><strong>Folders it reads.</strong> If you point RanchHub at a synced folder (for example a Google Drive folder your assistants work in), it reads file names, times and its status file there, and the crossover CSV files for the Crossover add-on – on your computer only, never writing to that folder. Voice files live in your user folder under <code>RanchHub\voice</code>.</li>
+  </ul>
+  <p>These files are yours. We cannot see them. Uninstalling the app leaves your data file in place so you can keep or delete it.</p>
+
+  <h2>What RanchHub does not do</h2>
+  <ul>
+    <li>No account, no sign-in, no license check.</li>
+    <li>No telemetry, analytics, crash reports or usage statistics. The app never contacts us.</li>
+    <li>No advertising, no tracking, no selling or sharing of data.</li>
+    <li>The dashboard is served only to your own computer (127.0.0.1); other devices on your network cannot reach it.</li>
+  </ul>
+
+  <h2>What leaves your computer – only when you turn it on</h2>
+  <ul>
+    <li><strong>Talk to Bex.</strong> If you add your own Anthropic API key, what you type to Bex, a short summary of the hub (brake line, gates, open jobs, wait list, how many packets are held), a short summary of your ranch folder if you set one (its status file and the newest file title from each assistant's folder) and the results of the tools Bex uses are sent to Anthropic's Claude API. Anthropic's <a href="https://www.anthropic.com/legal/privacy" rel="noopener">privacy policy</a> and API terms apply to that data. Your key is read once at start-up, is never written, shown, logged or sent anywhere except in the request to Anthropic, and you can remove it at any time.</li>
+    <li><strong>Voice calls in the app window.</strong> Turning speech into text and back happens on your computer: your voice and the spoken replies never leave it. The first time you choose Install voice, RanchHub downloads the open-source speech programs and voice models (about 800 MB) from GitHub and checks each file against a fixed fingerprint; nothing about you is sent in that download. What you say to Bex in a call is sent to Anthropic like typed Talk to Bex messages.</li>
+    <li><strong>Push to talk and read aloud.</strong> These use your web browser's own speech features. Chrome sends the audio to Google and Edge sends it to Microsoft to turn it into text, under their privacy policies. Read aloud uses a voice installed on your computer; if your browser has none for your language it may use an online voice, and the reply text then goes to that browser's provider.</li>
+    <li><strong>Jimmy inbox folder.</strong> If you choose a folder for messages to Jimmy, RanchHub writes one text file there per message. If that folder syncs to a cloud service (OneDrive, Google Drive, Dropbox), the files go with it under that service's terms.</li>
+    <li><strong>Clean Exchange.</strong> Packets you place in your exchange folder are checked on your computer. Nothing is uploaded by RanchHub; what your exchange folder itself syncs is governed by the service it syncs with.</li>
+    <li><strong>Microsoft Store.</strong> When you install or update RanchHub from the Store, Microsoft processes the install under its own <a href="https://privacy.microsoft.com/privacystatement" rel="noopener">privacy statement</a>. We receive no personal data from the Store, only aggregate counts.</li>
+  </ul>
+
+  <h2>This website</h2>
+  <p>getranchhub.com is a static site hosted on GitHub Pages; GitHub may record your IP address in its server logs under the <a href="https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement" rel="noopener">GitHub privacy statement</a>. The home page loads its fonts from Google Fonts, which sends your IP address to Google. We set no cookies and run no analytics.</p>
+
+  <h2>Children</h2>
+  <p>RanchHub is a tool for working professionals and is not directed at children under 13.</p>
+
+  <h2>Your choices</h2>
+  <p>Everything above that leaves your computer is off until you turn it on, and off again when you remove the key, folder or feature. To delete all RanchHub data, uninstall the app and delete the data file, audit log and ledger named above.</p>
+
+  <h2>Changes</h2>
+  <p>If this policy changes, the new version is posted here with a new version number and date. Material changes are also noted in the app's release notes.</p>
+
+  <footer>RanchHub · <a href="mailto:getranchhub@gmail.com">getranchhub@gmail.com</a> · <a href="/support.html">Support</a> · <a href="/">Home</a></footer>
+</main>
+</body>
+</html>
